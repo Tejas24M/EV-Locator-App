@@ -1,0 +1,11 @@
+{
+  "name": "ev_locator",
+  "version": "1.0.0",
+  "description": "Backend for location tracking and updating buggies around IIT Bombay campus.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ignite",
+  "license": "ISC"
+}
