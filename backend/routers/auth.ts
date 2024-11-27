@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { db, User } from '../database';
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key'; // Use environment variable for security
+const JWT_SECRET = process.env.JWT_SECRET || 'GgNOzBgcJeR2wSZf';
 
 // Registration Route
 router.post('/register', async (req: Request, res: Response): Promise<void> => {
@@ -36,6 +36,7 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
                 [username, hashedPassword, clientType],
                 (err) => {
                     if (err) {
+                        console.log(err)
                         res.status(500).json({ error: 'Registration failed due to server error' });
                         return;
                     }
@@ -65,7 +66,7 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
                 return;
             }
 
-            const user = row as User; // Explicitly cast to User type
+            const user = row as User;
 
             if (!user || !(await bcrypt.compare(password, user.password))) {
                 res.status(401).json({ error: 'Invalid username or password' });
@@ -74,7 +75,7 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
 
             // Generate JWT token
             const token = jwt.sign({ id: user.id, clientType: user.client_type }, JWT_SECRET, { expiresIn: '1h' });
-            res.json({ token });
+            res.json({ token: token, role: user.client_type});
         });
     } catch (error) {
         console.error(error);

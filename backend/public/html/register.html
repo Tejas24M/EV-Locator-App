@@ -54,7 +54,7 @@
             
             const data = await response.json();
             
-            if (data.message === 'User registered') {
+            if (data.message === 'User registered successfully') {
                 // After successful registration, log the user in automatically (assuming the same credentials)
                 const loginResponse = await fetch('/api/login', {
                     method: 'POST',
